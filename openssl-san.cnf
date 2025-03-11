@@ -1,0 +1,21 @@
+[req]
+default_bits       = 2048
+prompt             = no
+default_md         = sha256
+req_extensions     = req_ext
+distinguished_name = dn
+
+[dn]
+C=US
+ST=Some-State
+L=.
+O=spring
+OU=it
+CN=spring.astute001.com
+emailAddress=tdashpute@gmail.com
+
+[req_ext]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = spring.astute001.com
