@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+      - name: springboot
+        image: tushardashpute/springboot:latest
+        ports:
+        - containerPort: 33333
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot
+spec:
+  selector:
+    app: springboot
+  ports:
+  - port: 80
+    targetPort: 33333
