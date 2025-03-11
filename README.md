@@ -16,12 +16,14 @@ This guide walks you through deploying NGINX Ingress Controller on Azure Kuberne
 ```bash
 kubectl create namespace ingress-nginx
 
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.0/deploy/static/provider/cloud/deploy.yaml
+
+or
+
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
-helm install ingress-nginx ingress-nginx/ingress-nginx \
-  --namespace ingress-nginx \
-  --set controller.publishService.enabled=true
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx -
 ```
 
 ---
