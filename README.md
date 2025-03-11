@@ -148,19 +148,44 @@ Apply:
 ```bash
 kubectl apply -f springboot-ingress.yaml
 ```
+Sample Output:
+```bash
+$ kubectl get pods,svc,ingress,ep
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/springboot-786d744fc5-95bsl   1/1     Running   0          6h3m
 
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.0.0.1       <none>        443/TCP   7h36m
+service/springboot   ClusterIP   10.0.195.196   <none>        80/TCP    7h31m
+
+NAME                                           CLASS   HOSTS                  ADDRESS         PORTS     AGE
+ingress.networking.k8s.io/springboot-ingress   nginx   spring.astute001.com   74.179.192.68   80, 443   7h27m
+
+NAME                   ENDPOINTS            AGE
+endpoints/kubernetes   104.45.179.218:443   7h36m
+endpoints/springboot   10.244.0.133:33333   7h31m
+```
 ---
 
 ## 5️⃣ Update Hosts File (Local DNS Resolution)
 Edit `/etc/hosts` or `C:\Windows\System32\drivers\etc\hosts`:
 ```
 <INGRESS_EXTERNAL_IP> spring.astute001.com
+
+In my case, as I have domain registered, I created a A record for the INGRESS_EXTERNAL_IP:
+
+![image](https://github.com/user-attachments/assets/7b4e5687-a520-458a-8da2-a0570e2fc269)
+
 ```
 
 To get the external IP:
 ```bash
 kubectl get svc -n ingress-nginx
 ```
+If we access it directly now, we can access it over https but with not-secure.
+
+![image](https://github.com/user-attachments/assets/2b694f68-8143-4df8-8584-e0f1b208aefe)
+
 
 ---
 
@@ -189,4 +214,8 @@ Now you can access your Spring Boot app at:
 https://spring.astute001.com
 ```
 And Chrome will trust your self-signed certificate!
+
+Now if we try to access it, it will show connection as secued with the certificate which we have created.
+
+![image](https://github.com/user-attachments/assets/67d50c61-ded5-42aa-a1d8-885b18fb19d8)
 
